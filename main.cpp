@@ -36,8 +36,16 @@ void dodajAkta(vector<dane> &baza) {
     baza.push_back(record);
 }
 
-void usunAkta(){
+void usunAkta(vector<dane> &baza){
+    char wybor[50]
+    cout << "Podaj numer sprawy, ktora chcesz usunac: ";
+    cin >> wybor;
+    for (int i = 0; i < baza.size(); i++){
+        for (int j = 0; j<50; j++){
+                if baza[i].
 
+        }
+    }
 }
 
 void zmienDane(){
@@ -57,7 +65,7 @@ void wczytajPlik(){
 }
 
 int main() {
-
+    char wybor[50]
 
     vector<dane> baza;
 
@@ -79,7 +87,7 @@ int main() {
                 dodajAkta(baza);
                 break;
             case 2:
-                usunAkta();
+                usunAkta(baza);
                 break;
             case 3:
                 zmienDane();
