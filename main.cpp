@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstring>
+#include <fstream>
+#include <iterator>
 
 using namespace std;
 
@@ -36,50 +39,94 @@ void dodajAkta(vector<dane> &baza) {
     baza.push_back(record);
 }
 
-void usunAkta(vector<dane> &baza){
-    char wybor[50]
+void usunAkta(vector<dane> &baza) {
+    char numer[50];
     cout << "Podaj numer sprawy, ktora chcesz usunac: ";
-    cin >> wybor;
-    for (int i = 0; i < baza.size(); i++){
-        for (int j = 0; j<50; j++){
-                if baza[i].
-
+    cin >> numer;
+    for (int i = 0; i < baza.size(); i++) {
+        if (strcmp(baza[i].numerSprawy, numer) == 0) {
+            baza.erase(baza.begin() + i);
         }
     }
 }
 
-void zmienDane(){
+void zmienDane(vector<dane> baza){
 
 }
 
-void wyszukaj(){
+void wyszukaj(vector<dane> baza){
 
 }
 
-void zapiszPlik(){
-
+void zapiszPlik(vector<dane> baza){
+    ofstream plik;
+    plik.open("zapisanaBaza.txt");
+    for (int i = 0; i < baza.size(); i++){
+        plik << baza[i].numerSprawy << endl;
+        plik << baza[i].typ << endl;
+        plik << baza[i].dataWszczecia << endl;
+        plik << baza[i].dataZakonczenia << endl;
+        plik << baza[i].oficerProwadzacy << endl;
+        plik << baza[i].oskarzony << endl;
+        plik << baza[i].poszkodowany << endl;
+        plik << baza[i].swiadek << endl;
+    }
+    plik.close();
 }
 
-void wczytajPlik(){
+void wczytajPlik(vector<dane> &baza){ //do poprawienia
+    fstream plik;
 
+    plik.open("zapisanaBaza.txt", ios::in);
+    if(plik.good() == true) {
+        for (int i = 0; plik.eof() != 1; i++) {
+            getline(plik, baza[i].numerSprawy);
+            getline(plik, baza[i].typ);
+            getline(plik, baza[i].dataWszczecia);
+            getline(plik, baza[i].dataZakonczenia);
+            getline(plik, baza[i].oficerProwadzacy);
+            getline(plik, baza[i].oskarzony);
+            getline(plik, baza[i].poszkodowany);
+            getline(plik, baza[i].swiadek);
+
+        }
+    }
+        plik.close();
+}
+
+void wypiszAkta(vector<dane> baza){
+    for (int i = 0; i < baza.size(); i++){
+        cout << baza[i].numerSprawy << endl;
+        cout << baza[i].typ << endl;
+        cout << baza[i].dataWszczecia << endl;
+        cout << baza[i].dataZakonczenia << endl;
+        cout << baza[i].oficerProwadzacy << endl;
+        cout << baza[i].oskarzony << endl;
+        cout << baza[i].poszkodowany << endl;
+        cout << baza[i].swiadek << endl;
+    }
 }
 
 int main() {
-    char wybor[50]
+
+    char numer[50];
 
     vector<dane> baza;
 
     int wybor;
     do {
+        for (int i = 0; i<60;i++){cout << "*";}cout<<endl;
         cout << "Witaj w programie do zarzadzania archiwum kryminalnym!\nCo chcesz zrobic? " << endl;
-        cout << "1 - Dodanie akt" << endl;
-        cout << "2 - Usuniecie akt" << endl;
+        cout << "1 - Dodanie akt" << endl;                                         //Dziala
+        cout << "2 - Usuniecie akt" << endl;                                        //Dziala
         cout << "3 - Zmiana danych akt" << endl;
         cout << "4 - Wyszukiwanie/filtrowanie po numerze lub typie" << endl;
-        cout << "5 - " << endl;
-        cout << "6 - Zapisanie bazy danych na dysku w postaci pliku" << endl;
+        cout << "5 - Wypisz" << endl;                                               //Dziala
+        cout << "6 - Zapisanie bazy danych na dysku w postaci pliku" << endl;       //Dziala
         cout << "7 - Wczytanie zapisanej bazy danych ze wskazanego pliku" << endl;
         cout << "0 - Wyjscie z programu" << endl;
+        for (int i = 0; i<60;i++){cout << "*";}cout<<endl;
+        cout << "Twoj wybor: ";
         cin >> wybor;
 
         switch (wybor) {
@@ -96,9 +143,10 @@ int main() {
                 wyszukaj();
                 break;
             case 5:
+                wypiszAkta(baza);
                 break;
             case 6:
-                zapiszPlik();
+                zapiszPlik(baza);
                 break;
             case 7:
                 wczytajPlik();
