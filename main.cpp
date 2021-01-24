@@ -55,7 +55,52 @@ void zmienDane(vector<dane> baza){
 }
 
 void wyszukaj(vector<dane> baza){
+    int w;
+    char numer[50];
+    string typSprawy;
+    cout << "Co chcesz zrobic?" << endl;
+    cout << "1 - Wyszukiwanie po numerze sprawy" << endl;
+    cout << "2 - Filtrowanie po typie sprawy" << endl;
+    cout << "0 - Powrot" << endl;
+    cout << "Twoj wybor: " << endl;
+    cin >> w;
+    switch (w){
+        case 0:
+            break;
+        case 1:
+            cout << "Podaj numer sprawy: ";
+            cin >> numer;
+            for (int i = 0; i < baza.size(); i++){
+                if(strcmp(numer, baza[i].numerSprawy ) == 0){
+                    cout << "Numer sprawy: " << baza[i].numerSprawy << endl;
+                    cout << "Typ: " << baza[i].typ << endl;
+                    cout << "Data wszczecia: " << baza[i].dataWszczecia << endl;
+                    cout << "Data zakonczenia: " << baza[i].dataZakonczenia << endl;
+                    cout << "Oficer prowadzacy: " << baza[i].oficerProwadzacy << endl;
+                    cout << "Oskarzony: " << baza[i].oskarzony << endl;
+                    cout << "Poszkodowany: " << baza[i].poszkodowany << endl;
+                    cout << "Swiadek: " << baza[i].swiadek << endl;
+                }
+            }
+            break;
+        case 2:
+            cout << "Podaj typ sprawy: ";
+            cin >> typSprawy;
+            for (int i = 0; i < baza.size(); i++){
+                if(typSprawy == baza[i].typ){
+                    cout << "Numer sprawy: " << baza[i].numerSprawy << endl;
+                    cout << "Typ: " << baza[i].typ << endl;
+                    cout << "Data wszczecia: " << baza[i].dataWszczecia << endl;
+                    cout << "Data zakonczenia: " << baza[i].dataZakonczenia << endl;
+                    cout << "Oficer prowadzacy: " << baza[i].oficerProwadzacy << endl;
+                    cout << "Oskarzony: " << baza[i].oskarzony << endl;
+                    cout << "Poszkodowany: " << baza[i].poszkodowany << endl;
+                    cout << "Swiadek: " << baza[i].swiadek << endl;
+                }
+            }
+            break;
 
+    }
 }
 
 void zapiszPlik(vector<dane> baza){
