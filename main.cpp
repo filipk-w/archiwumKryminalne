@@ -75,20 +75,28 @@ void zapiszPlik(vector<dane> baza){
 }
 
 void wczytajPlik(vector<dane> &baza){ //do poprawienia
-    fstream plik;
-
-    plik.open("zapisanaBaza.txt", ios::in);
-    if(plik.good() == true) {
-        for (int i = 0; plik.eof() != 1; i++) {
-            getline(plik, baza[i].numerSprawy);
-            getline(plik, baza[i].typ);
-            getline(plik, baza[i].dataWszczecia);
-            getline(plik, baza[i].dataZakonczenia);
-            getline(plik, baza[i].oficerProwadzacy);
-            getline(plik, baza[i].oskarzony);
-            getline(plik, baza[i].poszkodowany);
-            getline(plik, baza[i].swiadek);
-
+    ifstream plik;
+    string temp;
+    dane a;
+    plik.open("zapisanaBaza.txt");
+    if(plik.good()) {
+        while (plik.eof() != 1) {
+            getline(plik, temp);
+            cout << temp << endl;
+            for (int j = 0; j < 50; j++) {
+                a.numerSprawy[j] = temp[j];
+            }
+            getline(plik, a.typ);
+            getline(plik, a.dataWszczecia);
+            getline(plik, a.dataZakonczenia);
+            getline(plik, temp);
+            for (int k = 0; k < 256; k++) {
+                a.oficerProwadzacy[k] = temp[k];
+            }
+            getline(plik, a.oskarzony);
+            getline(plik, a.poszkodowany);
+            getline(plik, a.swiadek);
+        baza.push_back(a);
         }
     }
         plik.close();
@@ -96,14 +104,14 @@ void wczytajPlik(vector<dane> &baza){ //do poprawienia
 
 void wypiszAkta(vector<dane> baza){
     for (int i = 0; i < baza.size(); i++){
-        cout << baza[i].numerSprawy << endl;
-        cout << baza[i].typ << endl;
-        cout << baza[i].dataWszczecia << endl;
-        cout << baza[i].dataZakonczenia << endl;
-        cout << baza[i].oficerProwadzacy << endl;
-        cout << baza[i].oskarzony << endl;
-        cout << baza[i].poszkodowany << endl;
-        cout << baza[i].swiadek << endl;
+        cout << "Numer sprawy: " << baza[i].numerSprawy << endl;
+        cout << "Typ: " << baza[i].typ << endl;
+        cout << "Data wszczecia: " << baza[i].dataWszczecia << endl;
+        cout << "Data zakonczenia: " << baza[i].dataZakonczenia << endl;
+        cout << "Oficer prowadzacy: " << baza[i].oficerProwadzacy << endl;
+        cout << "Oskarzony: " << baza[i].oskarzony << endl;
+        cout << "Poszkodowany: " << baza[i].poszkodowany << endl;
+        cout << "Swiadek: " << baza[i].swiadek << endl;
     }
 }
 
@@ -137,10 +145,10 @@ int main() {
                 usunAkta(baza);
                 break;
             case 3:
-                zmienDane();
+                zmienDane(baza);
                 break;
             case 4:
-                wyszukaj();
+                wyszukaj(baza);
                 break;
             case 5:
                 wypiszAkta(baza);
@@ -149,7 +157,7 @@ int main() {
                 zapiszPlik(baza);
                 break;
             case 7:
-                wczytajPlik();
+                wczytajPlik(baza);
                 break;
         }
     } while(wybor != 0);
